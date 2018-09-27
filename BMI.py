@@ -8,6 +8,7 @@ import datetime
 conn = sqlite3.connect('BMI.db')
 c = conn.cursor()
 
+# Method to create the menu
 def menu():
 	print("\npress 1 : to add your profile.")
 	print("press 2 : to check your profile. ")
@@ -15,13 +16,14 @@ def menu():
 	print("press q : to quit program. ")
 	return input('What would you like to do?\n Enter a valid entry: ')
 
-
+# Method to create the db and Table within
 def createTable():
 	c.execute('CREATE TABLE IF NOT EXISTS users(datestamp TEXT, name TEXT, weight FLOAT, height FLOAT, bmi FLOAT, information TEXT)')
 
 createTable()
 run = menu()
 
+# Method to Search for the user in the database to show their information - If not found it will prompt the create user method 
 def search():
 	person = input("What is your name?\n")
 	c.execute("SELECT * FROM users WHERE name = (?)",(person,))
@@ -35,6 +37,8 @@ def search():
 	else:
 		return 0
 
+
+# Method to create a new user - reading in their information and storing it in the database (Check to see if the same name is being used as another user)
 def create():
 	
 	name = str(input("\nWhat is your name?\n"))
@@ -78,6 +82,7 @@ def create():
 	
 		conn.commit()
 
+# Method to show all users in the database and their information
 def showall():
 	try:
 		conn = sqlite3.connect('BMI.db')
@@ -90,18 +95,14 @@ def showall():
 			print(row)
 			row = c.fetchone()
 			
-		
-			
 	except Error as e:
 		print(e)
  
 	finally:
 		row = None
 		return 0
-		
 
-			
-
+# while loop to read the user input for choices on the menu
 while True:
 	# to add user #
 		if run == '1':
@@ -122,5 +123,6 @@ while True:
 			print("not a valid selection, please choose again below")
 			run = menu()
 
+# closing the DB and cursor
 c.close()
 conn.close()
