@@ -26,10 +26,9 @@ def search():
 	person = input("What is your name?\n")
 	c.execute("SELECT * FROM users WHERE name = (?)",(person,))
 	data = c.fetchall()
-	print(data[0])
-#	print("%s You are %.2f cms, and you are %.2f kg\nYour BMI is %f, This means you are %s" % (name, height, weight, BMI, information))
+	print(data)
 
-	if data == [(0,)]:
+	if data == []:
 		print("user not in database, please add user")
 		create()
 		return 0
@@ -42,8 +41,10 @@ def create():
 	
 	c.execute("SELECT * FROM users WHERE name = (?)",(name,))
 	data = c.fetchall()
+	print(data)
 	if data != []:
 		return print("user already in database.")
+		
 		return 0
 	else:
 		unix = time.time()
@@ -89,11 +90,16 @@ def showall():
 			print(row)
 			row = c.fetchone()
 			
+		
+			
 	except Error as e:
 		print(e)
  
 	finally:
-		menu()
+		row = None
+		return 0
+		
+
 			
 
 while True:
@@ -108,6 +114,7 @@ while True:
 	# to check all users
 		elif run == '3':
 			showall()
+			run = menu()
 		elif run == 'q':
 			break
 	# any other input during the menu #
