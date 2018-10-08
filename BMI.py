@@ -97,7 +97,7 @@ def showall():
 			
 	except Error as e:
 		print(e)
- 
+
 	finally:
 		row = None
 		return 0
