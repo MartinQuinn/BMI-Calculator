@@ -2,7 +2,7 @@
 from tkinter import *
 
 
-#download and install pillow:
+#download and install pillow: "pip3 install Pillow"
 # http://www.lfd.uci.edu/~gohlke/pythonlibs/#pillow
 from PIL import Image, ImageTk
 
